@@ -1,8 +1,11 @@
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Card from "./components/Card";
 import { useState } from 'react';
-import { Button } from '@mantine/core';
+import { Button, Input, Textarea, Container, Stack, Grid } from '@mantine/core';
+
+//import { IconSearch } from '@tabler/icons';
 
 //let arr = ["Dağ 1", "Dağ 2", "Dağ 3", "Dağ 4"];
 
@@ -22,93 +25,75 @@ let dizi = [
     title: "Dağ 3",
     par: "Açıklama 3"
   },
+  {
+    id:4,
+    title: "Dağ 4",
+    par: "Açıklama 4"
+  }
 ];
-
-/*
-//function
-function kare(sayi) {
-  return sayi*sayi;
-}
-*/
-
-/*
-//arrow function
-const kare = (sayi) => {
-  return sayi*sayi;
-}
-*/
 
 //without return
 const kare = (sayi) => sayi*sayi;
 
-/*
-function App() {
-  console.log("kare hesaplama", kare(5));
-  return (
-  <div>
-    <h1>Başlık</h1>
-    <p>Başlangıç</p>
-    <div className='Cards'>
-      {dizi.map(function({title, par})
-      { //bu süslü parantez başka değişkenlerin olması durumunda gerekli
-        return <Card title={title} par={par}/>;
-      })}
-    </div>
-    
-  </div> 
-  );
-}
-*/
 let dag = [1,2,3];
 let ic=0;
 
 const App = () => {
+  const [t_text, setT_text] = useState("");
+  const [para, setPara] = useState("");
+  const [list, setList] = useState(dizi);
   const [val, setVal] = useState(11);
+  const click = () => {
+    console.log("click!", t_text, para);
+    setT_text("");
+    setPara("");
+    const copyList = [...list];
+    copyList.push({
+      id: 5,
+      title: t_text,
+      par: para
+    });
+    setList(copyList);
+  }
   return (
-    <div>
-      <h1>Schedule Planning</h1>
-      <Button>Mantine</Button>
+    <Container>
+      <h1>Card Creatin Program</h1>
+      <Stack>
+        <Input.Wrapper label="Input label">
+          <Input
+          //icon={<IconSearch size={36}/>}
+          label="Title"
+          placeholder="Your Title Goes Here"
+          radius="md"
+          value={t_text}
+          onChange={(e) => setT_text(e.target.value)}
+          />
+        </Input.Wrapper>
+        
 
-      <div>
-        <p>{ic}</p>
-        <button onClick={() => {
-          if (ic < 3){
-          ic = ic + 1;
-          }
-        }}>next</button>
-        <button onClick={() => {
-          if (ic > 0){
-          ic = ic - 1;
-          }
-        }}>prev</button>
-        <p>{ic}</p>
-      </div>
+        <Textarea
+        placeholder="Your explanatory text Goes Here"
+        label="Details"
+        value={para}
+        onChange={(e) => setPara(e.target.value)}
 
-      <h2>Lesson {val}</h2>
+        //withAsterisk
+        />
 
-      <button onClick={() => {
-        setVal(val+1);
-      }}>Add</button>
-
-      <button onClick={() => {
-        if(val!==0){
-        setVal(val-1);}
-      }}>Remove</button>
-
-      <button onClick={() => {
-        setVal(0);
-      }}>Reset</button>
-
-      <p>Başlangıç</p>
-
-      <div className='Cards'>
-        {dizi.map(function({id, title, par})
-        { 
-          return <Card keys={id} title={title} par={par} lesson={val}/>;
-        })}
-      </div>
+        <Button variant='outline' onClick={click}>Make a Card with Mantine!</Button>
+      </Stack>
       
-    </div> 
+      <h2>Kartlar</h2>
+
+      <Grid className='Cards'>
+        {list.map(({id, title, par}) => (
+          <Grid.Col span={4} keys={id}>
+            <Card title={title} par={par} lesson={val}/>
+          </Grid.Col>
+        ))}
+      </Grid>
+      
+    </Container> 
     );
 }
 

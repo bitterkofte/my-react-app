@@ -1,39 +1,33 @@
-import "./Card.css"
-/*
-function Card(props) {
+import { Card, Image, Text, Badge, Button, Group } from '@mantine/core';
+import React from 'react';
+
+const CardComponent = ({keys, title, par, lesson}) => { 
     return  (
-        <div className="Card">
-        <h3>{props.title}</h3>
-        <p>{props.par}</p>
-        <button>Devamı</button>
-        </div>
+        <Card shadow="sm" p="lg" radius="md" withBorder>
+            <Card.Section>
+                <Image
+                src="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
+                height={160}
+                alt="Norway"
+                />
+            </Card.Section>
+
+            <Group position="apart" mt="md" mb="xs">
+                <Text weight={500}>{title}</Text>
+                <Badge color="pink" variant="light">
+                On Sale
+                </Badge>
+            </Group>
+
+            <Text size="sm" color="dimmed">
+                {par}
+            </Text>
+
+            <Button variant="light" color="blue" fullWidth mt="md" radius="md">
+                Book classic tour now
+            </Button>
+        </Card>
     )
 }
 
-export default Card;
-*/
-/*
-function Card({title, par}) {
-    return  (
-        <div className="Card">
-        <h3>{title}</h3>
-        <p>{par}</p>
-        <button>Devamı</button>
-        </div>
-    )
-}
-*/
-//arrow function
-const Card = ({keys, title, par, lesson}) => { 
-    return  (
-        <div className="Card">
-        <h3>{title}</h3>
-        <p>{par}</p>
-        <p>id:{keys}</p>
-        {lesson > 20 && keys === 1 && <div>Advanced Level</div>}
-        <button>Devamı</button>
-        </div>
-    )
-}
-
-export default Card;
+export default CardComponent;
