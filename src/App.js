@@ -9,28 +9,7 @@ import { Button, Input, Textarea, Container, Stack, Grid } from '@mantine/core';
 
 //let arr = ["Dağ 1", "Dağ 2", "Dağ 3", "Dağ 4"];
 
-let dizi = [
-  { //object
-    id:1,
-    title: "Dağ 1",
-    par: "Açıklama 1"
-  },
-  {
-    id:2,
-    title: "Dağ 2",
-    par: "Açıklama 2"
-  },
-  {
-    id:3,
-    title: "Dağ 3",
-    par: "Açıklama 3"
-  },
-  {
-    id:4,
-    title: "Dağ 4",
-    par: "Açıklama 4"
-  }
-];
+
 
 //without return
 const kare = (sayi) => sayi*sayi;
@@ -41,18 +20,42 @@ let ic=0;
 const App = () => {
   const [t_text, setT_text] = useState("");
   const [para, setPara] = useState("");
-  const [list, setList] = useState(dizi);
+  const [list, setList] = useState([
+    { //object
+      id:1,
+      title: "Dağ 1",
+      par: "Açıklama 1"
+    },
+    {
+      id:2,
+      title: "Dağ 2",
+      par: "Açıklama 2"
+    },
+    {
+      id:3,
+      title: "Dağ 3",
+      par: "Açıklama 3"
+    },
+    {
+      id:4,
+      title: "Dağ 4",
+      par: "Açıklama 4"
+    }
+  ]);
   const [val, setVal] = useState(11);
   const click = () => {
     console.log("click!", t_text, para);
     setT_text("");
     setPara("");
-    const copyList = [...list];
-    copyList.push({
-      id: 5,
-      title: t_text,
-      par: para
-    });
+    const copyList = [
+      ...list,
+      {
+        id: 5,
+        title: t_text,
+        par: para
+      }
+    ];
+    copyList.push();
     setList(copyList);
   }
   return (
@@ -86,9 +89,15 @@ const App = () => {
       <h2>Kartlar</h2>
 
       <Grid className='Cards'>
-        {list.map(({id, title, par}) => (
-          <Grid.Col span={4} keys={id}>
-            <Card title={title} par={par} lesson={val}/>
+        {list.map(({title, par}, i) => (
+          <Grid.Col span={4} keys={`index ${i}`}>
+            <Card title={title} par={par} i={i}
+            click={()=>{
+              let copyList =[...list];
+              copyList.splice(i,1);
+              setList(copyList);
+              console.log("klik")
+            }}/>
           </Grid.Col>
         ))}
       </Grid>
