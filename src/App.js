@@ -47,17 +47,15 @@ const App = () => {
     console.log("click!", t_text, para);
     setT_text("");
     setPara("");
-    const copyList = [
+    setList([
       ...list,
       {
         id: 5,
         title: t_text,
         par: para
       }
-    ];
-    copyList.push();
-    setList(copyList);
-  }
+    ]);
+  };
   return (
     <Container>
       <h1>Card Creatin Program</h1>
